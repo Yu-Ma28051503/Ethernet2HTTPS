@@ -38,3 +38,22 @@ Please include:
 - Keep public APIs small: expose only what higher layers need; avoid cross-layer back-references (e.g., `eth/` should not depend on `tcp/`).
 - Generated artifacts (e.g., `build/`, `.o`, `.dSYM`, `.pcap`) should not be committed.
 
+## Function / variable naming rule
+
+Basic goal: minimize 表記揺れ by using one default convention (assume C/C-like code).
+
+- Functions: `lower_snake_case` + module prefix
+  - Prefer `<module>_<verb>_<object>` (e.g., `ip4_parse_header`, `tcp_send_segment`, `tls13_build_record`)
+  - Avoid leading underscores (reserved in many C toolchains)
+- Variables: `lower_snake_case`
+  - Use nouns for data (e.g., `seq_num`, `payload_len`, `peer_mac`)
+  - Booleans use `is_*/has_*/can_*/should_*` (e.g., `is_valid`, `has_psk`, `should_retransmit`)
+- Length/count/capacity words (pick one meaning and stick to it):
+  - `*_len` : byte length of a buffer/span
+  - `*_count` : number of elements (packets, entries, etc.)
+  - `*_cap` : capacity / allocated max elements
+- Constants / macros: `UPPER_SNAKE_CASE`
+  - If exported across modules, prefix with a stable tag (e.g., `E2H_...` or `<MODULE>_...`)
+- Types (`struct`/`enum`/`typedef`): `UpperCamelCase`
+  - Prefer `<Module><Thing>` (e.g., `Ipv4Header`, `TcpState`, `Tls13Record`)
+  - Enum members: `UPPER_SNAKE_CASE` (e.g., `TCP_STATE_SYN_SENT`, `TLS13_ALERT_FATAL`)

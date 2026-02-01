@@ -23,6 +23,7 @@
 - Testing & debugging: [docs/TESTING.md](docs/TESTING.md)
 - Security notes: [docs/SECURITY.md](docs/SECURITY.md)
 - Contributing (branch + file/directory rules): [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md)
+- References (RFCs, specs, vectors): [docs/references/README.md](docs/references/README.md)
 
 ---
 
